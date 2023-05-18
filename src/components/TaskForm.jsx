@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { tasks } from "../data/task";
+import { useState, useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
 
-function TaskForm({ createTask }) {
+function TaskForm() {
   const [tittle, setTittle] = useState("");
   const [description, setDescription] = useState("");
+  const { createTask } = useContext(TaskContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,25 +20,28 @@ function TaskForm({ createTask }) {
   };
 
   return (
-    <form action="" onSubmit={handleSubmit}>
-      <input
-        id="new-task"
-        placeholder="Escribe tu tarea"
-        type="text"
-        onChange={(e) => {
-          setTittle(e.target.value);
-        }}
-        value={tittle}
-        autoFocus
-      ></input>
-      <textarea
-        id="description"
-        placeholder="escribe la descripción de la tarea"
-        onChange={(e) => setDescription(e.target.value)}
-        value={description}
-      ></textarea>
-      <button>Save</button>
-    </form>
+    <div className="max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className="bg-neutral-700 p-10 mb-4 rounded-md">
+        <h1 className="text-2xl font-bold text-white mb-3 ">Crea tu tarea</h1>
+        <input
+          className="bg-slate-300 p-3 w-full mb-2 rounded-md"
+          placeholder="Escribe tu tarea"
+          type="text"
+          onChange={(e) => {
+            setTittle(e.target.value);
+          }}
+          value={tittle}
+          autoFocus
+        ></input>
+        <textarea
+          className="bg-slate-300 p-3 w-full mb-2 rounded-md"
+          placeholder="Escribe la descripción de la tarea"
+          onChange={(e) => setDescription(e.target.value)}
+          value={description}
+        ></textarea>
+        <button className="bg-indigo-300 px-3 py-1 text-white rounded-md hover:bg-indigo-600">Save</button>
+      </form>
+    </div>
   );
 }
 
